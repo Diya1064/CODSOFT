@@ -1,0 +1,86 @@
+#include<iostream.h>
+#include<conio.h>
+void drawboard(char board[3][3])
+{
+	cout<<"\n--------\n";
+	for(int i=0; i<3; i++)
+	{
+		cout<<"|";
+		for(int j=0; j<3; j++)
+		{
+			cout<<board[i][j]<<"|";
+		}
+		cout<<"\n-------\n";
+	}
+}
+int check_win ( char board[3][3], char player)
+{
+	for(int i=0; i<3; i++)
+	{
+		if (board[i][0]==player && board[i][1]==player &&  board[i][2]==player)
+		{
+			return 0;
+		}
+		if (board[0][i]==player && board[1][i]==player &&  board[2][i]==player)
+		{
+			return 0;
+		}
+	}
+	if (board[0][0]==player && board[1][1]==player &&  board[2][2]==player)
+	{
+		return 0;
+	}
+	if (board[0][2]==player && board[1][1]==player &&  board[2][0]==player)
+	{
+		return 0;
+	}
+	return 1;
+  }
+void main()
+{
+      char board[3][3]={{' ',' ',' '},
+			{' ',' ',' '},
+			{' ',' ',' '}};
+	char player='X';
+	int row,column;
+	int turn;
+	cout<<"Tic-Tac-Toe Game!";
+	for(turn=0; turn<=9; turn++)
+	{
+		drawboard(board);
+		while(turn!=9)
+		{
+				cout<<"\n"<<player<<" Player";
+				cout<<"\nEnter row(0-2) and column(0-2): ";
+				cin>>row>>column;
+
+			if(board[row][column]!=' '||row<0 || row>2 || column<0 || column>2)
+			{
+				cout<<"\nInvalid move!make another move.";
+				break;
+			}
+		 break;
+		}
+
+		board[row][column]=player;
+		int win=check_win(board, player);
+		if(win==0)
+		{
+			drawboard(board);
+			cout<<"\nPlayer "<<player<<" wins!";
+			cout<<"\nCongratulations player "<<player<<".";
+			break;
+		}
+		player=(player=='X') ? 'O':'X';
+		}
+		drawboard(board);
+		if(turn==9 && !check_win(board,'X') && !check_win(board,'O'))
+		{
+			cout<<"\nIt's a draw..";
+		}
+
+	clrscr();
+	getch();
+}
+
+
